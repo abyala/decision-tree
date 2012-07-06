@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c) 2012 Andrew Byala
+  ~
+  ~ This file is part of DecisionTree.
+  ~
+  ~ DecisionTree is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ DecisionTree is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with DecisionTree.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<decision-tree>
+    <input-types>
+        <string-type name="letter">
+            <value>a</value>
+            <value>a_ref</value>
+            <value>b</value>
+            <value>b_ref</value>
+        </string-type>
+        <integer-type name="range" min="0" max="10"/>
+    </input-types>
+    <result-type class="com.abyala.decisiontree.SimpleStringResult">
+        <text-attribute name="value"/>
+    </result-type>
+    <tree>
+        <letter value="a">
+            <result value="LetterA"/>
+        </letter>
+        <letter value="a_ref" refid="a"/>
+        <letter value="b">
+            <range value="0">
+                <result value="LetterB-0"/>
+            </range>
+            <range value="5">
+                <result value="LetterB-5"/>
+            </range>
+            <range value="10" refid="0"/>
+        </letter>
+        <letter value="b_ref" refid="b"/>
+    </tree>
+</decision-tree>

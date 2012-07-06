@@ -1,4 +1,6 @@
 *.class
+.idea/*
+decision-tree.iml
 
 # Package Files #
 *.jar

@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <settings default="Decision Tree Copyright">
+    <module2copyright>
+      <element module="All" copyright="Decision Tree Copyright" />
+    </module2copyright>
+  </settings>
+</component>

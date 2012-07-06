@@ -1,0 +1,7 @@
+BUILDING FROM GITHUB:
+=====================
+
+git clone https://github.com/abyala/decision-tree.git
+cd decision-tree
+ant dist
+
