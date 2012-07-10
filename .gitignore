@@ -1,8 +1,8 @@
 *.class
 .idea/*
 decision-tree.iml
+dist/*
 
 # Package Files #
-*.jar
 *.war
 *.ear
