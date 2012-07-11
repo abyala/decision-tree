@@ -44,7 +44,7 @@
         <mkdir dir="${dist.dir}"/>
         <jar jarfile="${dist.dir}/decision-tree-${jar.version}.jar">
             <fileset dir="${build.java.dir}"/>
-            <file name="LICENSE"/>
+            <file file="LICENSE"/>
         </jar>
     </target>
 </project>
