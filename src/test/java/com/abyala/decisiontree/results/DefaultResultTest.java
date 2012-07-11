@@ -46,25 +46,25 @@ public class DefaultResultTest extends AbstractDecisionTreeTest {
     @Test
     public void testAllDefaults() throws InvalidFactException {
         final DecisionTreeFacts facts = createFacts("allDefaults");
-        validateResult(facts, "foo", true, "someMemo");
+        validateResult(facts, "foo", true, "someMemo", -1);
     }
 
     @Test
     public void testTwoDefined() throws InvalidFactException {
         final DecisionTreeFacts facts = createFacts("twoDefined");
-        validateResult(facts, "bar", false, "someMemo");
+        validateResult(facts, "bar", false, "someMemo", -1);
     }
 
     @Test
     public void testAllDefined() throws InvalidFactException {
         final DecisionTreeFacts facts = createFacts("allDefined");
-        validateResult(facts, "foo", true, "howdy");
+        validateResult(facts, "foo", true, "howdy", -1);
     }
 
     @Test
     public void testDefaultInputType() throws InvalidFactException {
         final DecisionTreeFacts facts = createFacts("I will use the default input, thank you very much");
-        validateResult(facts, "bar", false, "someMemo");
+        validateResult(facts, "bar", false, "someMemo", -1);
     }
 
     private DecisionTreeFacts createFacts(final String input) {
@@ -73,7 +73,7 @@ public class DefaultResultTest extends AbstractDecisionTreeTest {
         return facts;
     }
 
-    private void validateResult(final DecisionTreeFacts facts, final String expectedString, final Boolean expectedBool, final String expectedMemo)
+    private void validateResult(final DecisionTreeFacts facts, final String expectedString, final Boolean expectedBool, final String expectedMemo, final int expectedNum)
             throws InvalidFactException {
         final Object result = tree.evaluate(facts);
         final DefaultTestResult dtr = (DefaultTestResult) result;

@@ -29,6 +29,7 @@ public class DefaultTestResult {
     private String string;
     private Boolean bool;
     private String memo;
+    private Integer num;
 
     public String getString() {
         return string;
@@ -55,5 +56,14 @@ public class DefaultTestResult {
     @ResultField(name = "memo")
     public void setMemo(final String memo) {
         this.memo = memo;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    @ResultField(name = "num")
+    public void setNum(final Integer num) {
+        this.num = num;
     }
 }

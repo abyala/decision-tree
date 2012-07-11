@@ -32,6 +32,7 @@
         </string-attribute>
         <boolean-attribute name="bool" default="true"/>
         <text-attribute name="memo" default="someMemo"/>
+        <integer-attribute name="num" default="-1"/>
     </result-type>
     <tree>
         <fooInput value="allDefaults">
@@ -41,7 +42,7 @@
             <result string="bar" bool="false"/>
         </fooInput>
         <fooInput value="allDefined">
-            <result string="foo" bool="true" memo="howdy"/>
+            <result string="foo" bool="true" memo="howdy" num="500"/>
         </fooInput>
     </tree>
 </decision-tree>

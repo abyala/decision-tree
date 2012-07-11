@@ -90,7 +90,7 @@ public class SimpleDecisionTreeParser implements DecisionTreeParser {
             final String attributeName = child.getAttributeValue("name");
             final Method method = annotatedResultMethods.get(attributeName);
             if (method == null)
-                throw new DecisionTreeParserException("Result string attribute " + attributeName + " not defined on result class");
+                throw new DecisionTreeParserException("Result attribute \"" + attributeName + "\" not defined on result class " + resultClass.getName());
 
             final ResultAttribute attribute = parseResultAttribute(child, method);
             builder.addAttribute(attribute);
@@ -106,6 +106,8 @@ public class SimpleDecisionTreeParser implements DecisionTreeParser {
             return parseResultBooleanAttribute(element, attributeName, method);
         } else if ("text-attribute".equals(elementType)) {
             return parseResultTextAttribute(element, attributeName, method);
+        } else if ("integer-attribute".equals(elementType)) {
+            return parseResultIntegerAttribute(element, attributeName, method);
         } else {
             throw new DecisionTreeParserException("Unknown result attribute type: " + elementType);
         }
@@ -147,6 +149,22 @@ public class SimpleDecisionTreeParser implements DecisionTreeParser {
         return builder.build();
     }
 
+    private ResultAttribute parseResultIntegerAttribute(final Element element, final String name, final Method method) throws DecisionTreeParserException {
+        final IntegerResultAttribute.Builder builder = new IntegerResultAttribute.Builder(name, method);
+        final Attribute defaultAttribute = element.getAttribute("default");
+        if (defaultAttribute != null) {
+            final String value = defaultAttribute.getValue();
+            try {
+                final Integer intValue = Integer.parseInt(value);
+                builder.setDefaultValue(intValue);
+            } catch (NumberFormatException e) {
+                throw new DecisionTreeParserException("Invalid default value \"" + value + "\" for integer result attribute \"" + name + "\"");
+            }
+        }
+
+        return builder.build();
+    }
+
     private Node parseTable(final Element tableElement, final Map<String, InputType> types, final ResultSpec resultSpec) throws DecisionTreeParserException {
         if (tableElement == null) {
             throw new DecisionTreeParserException("Invalid XML: No element named \"tree\" found");
@@ -178,7 +196,7 @@ public class SimpleDecisionTreeParser implements DecisionTreeParser {
             } else if (children.isEmpty()) {
                 throw new DecisionTreeParserException("Node at path " + childPath + " must have a result, child inputs, or a refid");
             } else if (children.size() == 1 && "result".equals(children.get(0).getName())) {
-                builder.addResultMapping(value, parseResult(children.get(0), types, resultSpec));
+                builder.addResultMapping(value, parseResult(children.get(0), resultSpec));
             } else {
                 builder.addNodeMapping(value, parseInputs(childPath + "/", children, types, resultSpec));
             }
@@ -191,7 +209,7 @@ public class SimpleDecisionTreeParser implements DecisionTreeParser {
      * Creates a result specification for this node. Does not create the actual result object,
      * since there's no guarantee that that object will be immutable.
      */
-    private ResultNode parseResult(final Element element, final Map<String, InputType> types, final ResultSpec resultSpec) throws DecisionTreeParserException {
+    private ResultNode parseResult(final Element element, final ResultSpec resultSpec) throws DecisionTreeParserException {
         final ResultNode.Builder builder = new ResultNode.Builder(resultSpec);
         for (final Attribute attribute : element.getAttributes()) {
             final String name = attribute.getName();
