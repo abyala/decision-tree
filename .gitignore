@@ -1,7 +1,10 @@
-*.class
+.gradle/*
 .idea/*
 decision-tree.iml
 dist/*
+build/*
+*.class
+
 
 # Package Files #
 *.war

@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+defaultTasks 'test','jar'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.jdom:jdom:2.0.2'
+    testCompile 'junit:junit:4.+'
+    testCompile 'org.mockito:mockito-all:1.9+'
+}
